@@ -1,0 +1,24 @@
+{
+  "name": "control",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "DrRed96",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "child_process": "^1.0.2",
+    "colors": "^1.4.0",
+    "discord.js": "^12.5.3",
+    "discord.js.userbot": "^1.0.3",
+    "dotenv": "^10.0.0",
+    "fs": "^0.0.1-security",
+    "readline": "^1.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.5"
+  }
+}
