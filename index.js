@@ -27,6 +27,7 @@ let loaded = false;
 let sender;
 let sendertype;
 let messages = [];
+let loggingMode = "default";
 
 // When Discord Client is Ready
 client.on("ready",
@@ -409,7 +410,25 @@ async (input) => {
                         if (err) throw `${err}`;
                     });
                 } break;
-            
+
+                case ".loggingmode": {
+                    if (args.length < 2) throw "Missing arguments";
+                    switch (args[1]) {
+                        case "default":
+                            console.log(`Messaging logging set to ${"default".cyan}`);
+                            loggingMode = "default";
+                            break;
+
+                        case "channel":
+                            console.log(`Messaging logging set to ${"channel".cyan}`);
+                            loggingMode = "channel";
+                            break;
+
+                        default:
+                            throw "Invalid type";
+                            break;
+                    }
+                } break;
 
                 case ".savemsg": {
                     const fileName = `logs/${Date.now()}.txt`;
@@ -490,7 +509,7 @@ async (message) => {
         const displayContent = message.content.white.split("\n").join("\\n".gray).split("\t").join("\\t".gray); // Handle new lines and tabs
         if (message.author.id === client.user.id)
         {
-            if (sendertype === "channel") {
+            if (sendertype === "channel" && (loggingMode === "default" || loggingMode === "channel")) {
                 if (message.channel.type === "text") {
                     if (message.channel.guild.id === sender.guild.id) {
                         console.log(`${`(${sender.guild.name} | ${message.channel.name})`.magenta} ${`[${message.author.tag}]`.green} ${displayContent}`);
@@ -503,7 +522,7 @@ async (message) => {
                 messages.push(`${"(To)"} ${`[${sender.tag}]`} ${message.content.split("\n").join("\\n").split("\t").join("\\t")}`)
             }
         } else {
-            if (sendertype === "channel") {
+            if (sendertype === "channel" && (loggingMode === "default" || loggingMode === "channel")) {
                 if (message.channel.type === "text") {
                     if (message.channel.guild.id === sender.guild.id) {
                         let tag;
