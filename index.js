@@ -8,7 +8,9 @@ const Colors = require("colors");
 const allowUserBotting = require("discord.js.userbot");
 const Discord = require("discord.js");
 const { exec } = require("child_process");
+const fs = require("fs");
 const Readline = require("readline");
+const { fstat } = require("fs");
 
 // Create I/O Stream Object
 const rl = new Readline.createInterface({
@@ -24,6 +26,7 @@ let safemode = false;
 let loaded = false;
 let sender;
 let sendertype;
+let messages = [];
 
 // When Discord Client is Ready
 client.on("ready",
@@ -448,7 +451,12 @@ async (input) => {
                     console.log(`For more info type ${".help".cyan}`);
                 } break;
 
-                case ".exit": process.exit();
+                case ".exit": {
+                    fs.writeFile(`${new Date.toUTCString()}.txt`, messages.join("\n"), (err) => {
+                        if (err) throw err;
+                    });
+                    process.exit()
+                } break;
 
                 default: throw "Unknown command. Type \".help\" for the list of commands";
             }
@@ -505,6 +513,7 @@ async (message) => {
             }
             if (message.channel.type === "dm") {
                 console.log(`${"(From)".magenta} ${`[${message.author.tag}]`.cyan} ${displayContent}`);
+                messages.push(`${"(From)".magenta} ${`[${message.author.tag}]`.cyan} ${displayContent}`);
             }
         }
     } catch (err) {
