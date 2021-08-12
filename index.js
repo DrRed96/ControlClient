@@ -409,7 +409,18 @@ async (input) => {
                         if (err) throw `${err}`;
                     });
                 } break;
-                
+            
+
+                case ".savemsg": {
+                    const fileName = `logs/${Date.now()}.txt`;
+                    const fileContents = String(`${messages.join("\n").white}`);
+                    fs.writeFile(fileName, fileContents, (err) => {
+                        if (err) throw err;
+                        messages = [];
+                        console.log(`Message logs saved '${fileName}'`);
+                    });
+                } break;
+
                 case ".?":
                 case ".help": {
                     console.log("User Interactivity".magenta);
@@ -452,10 +463,7 @@ async (input) => {
                 } break;
 
                 case ".exit": {
-                    fs.writeFile(`${new Date.toUTCString()}.txt`, messages.join("\n"), (err) => {
-                        if (err) throw err;
-                    });
-                    process.exit()
+                    process.exit();
                 } break;
 
                 default: throw "Unknown command. Type \".help\" for the list of commands";
@@ -486,11 +494,13 @@ async (message) => {
                 if (message.channel.type === "text") {
                     if (message.channel.guild.id === sender.guild.id) {
                         console.log(`${`(${sender.guild.name} | ${message.channel.name})`.magenta} ${`[${message.author.tag}]`.green} ${displayContent}`);
+                        messages.push(`${`(${sender.guild.name} | ${message.channel.name})`} ${`[${message.author.tag}]`} ${message.content.split("\n").join("\\n").split("\t").join("\\t")}`)
                     }
                 }
             }
             if (message.channel.type === "dm") {
                 console.log(`${"(To)".magenta} ${`[${sender.tag}]`.cyan} ${displayContent}`);
+                messages.push(`${"(To)"} ${`[${sender.tag}]`} ${message.content.split("\n").join("\\n").split("\t").join("\\t")}`)
             }
         } else {
             if (sendertype === "channel") {
@@ -508,12 +518,13 @@ async (message) => {
                         }
 
                         console.log(`${`(${sender.guild.name} | ${message.channel.name})`.magenta} ${tag} ${displayContent}`);
+                        messages.push(`${`(${sender.guild.name} | ${message.channel.name})`} [${message.author.tag}] ${message.content.split("\n").join("\\n").split("\t").join("\\t")}`)
                     }
                 }
             }
             if (message.channel.type === "dm") {
                 console.log(`${"(From)".magenta} ${`[${message.author.tag}]`.cyan} ${displayContent}`);
-                messages.push(`${"(From)".magenta} ${`[${message.author.tag}]`.cyan} ${displayContent}`);
+                messages.push(`${"(From)"} ${`[${message.author.tag}]`} ${message.content.split("\n").join("\\n").split("\t").join("\\t")}`);
             }
         }
     } catch (err) {
