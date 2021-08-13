@@ -222,6 +222,7 @@ async (input) => {
                 } break;
 
                 case ".addrole": {
+                    if (safemode) throw "Cannot add role with safemode active";
                     if (args.length < 4) throw "Missing arguments";
 
                     if (client.guilds.cache.get(args[1]) === undefined) throw "Invalid guild";
@@ -240,6 +241,7 @@ async (input) => {
 
                 case ".rmrole":
                 case ".removerole": {
+                    if (safemode) throw "Cannot remove role with safemode active";
                     if (args.length < 4) throw "Missing arguments";
 
                     if (client.guilds.cache.get(args[1]) === undefined) throw "Invalid guild";
