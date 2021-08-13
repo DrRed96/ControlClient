@@ -221,6 +221,41 @@ async (input) => {
                     console.log(`Set ${member.user.tag.cyan}'s nickname to ${nick.cyan} in ${guild.name.cyan}.`);
                 } break;
 
+                case ".addrole": {
+                    if (args.length < 4) throw "Missing arguments";
+
+                    if (client.guilds.cache.get(args[1]) === undefined) throw "Invalid guild";
+                    const guild = client.guilds.cache.get(args[1]);
+
+                    if (guild.members.cache.get(args[2]) === undefined) throw "Invalid member";
+                    const member = guild.members.cache.get(args[2]);
+
+                    if (guild.roles.cache.get(args[3]) === undefined) throw "Invalid role";
+                    const role = guild.roles.cache.get(args[3]);
+
+                    if (member.roles.cache.has(args[3])) throw `${member.user.tag.cyan} already has role ${role.name}`;
+                    member.roles.add(args[3]);
+                    console.log(`Gave ${member.user.tag.cyan} the role ${role.name.cyan} in ${guild.name.cyan}`);
+                } break;
+
+                case ".rmrole":
+                case ".removerole": {
+                    if (args.length < 4) throw "Missing arguments";
+
+                    if (client.guilds.cache.get(args[1]) === undefined) throw "Invalid guild";
+                    const guild = client.guilds.cache.get(args[1]);
+
+                    if (guild.members.cache.get(args[2]) === undefined) throw "Invalid member";
+                    const member = guild.members.cache.get(args[2]);
+
+                    if (guild.roles.cache.get(args[3]) === undefined) throw "Invalid role";
+                    const role = guild.roles.cache.get(args[3]);
+                    
+                    if (!member.roles.cache.has(args[3])) throw `${member.user.tag.cyan} doesn't have role ${role.name}`;
+                    member.roles.add(args[3]);
+                    console.log(`Removed the role ${role.name.cyan} from ${member.user.tag.cyan} in ${guild.name.cyan}`);
+                } break;
+
                 case ".myperms": {
                     if (args.length < 2) throw "Missing Arguments";
                     if (client.guilds.cache.get(args[1]).members.cache.get(client.user.id) === undefined) throw `Guild with ID '${args[1]}' not found in the client's cache`;
@@ -444,6 +479,7 @@ async (input) => {
                 case ".help": {
                     console.log("User Interactivity".magenta);
                     console.log(`${"No Command".blue} Send a message to the set User/Channel`);
+                    console.log(`${".addrole".blue} ${"<Guild ID> <Member ID> <Role ID>".cyan} give a role to a guild member`);
                     console.log(`${".ban".blue} ${"<Guild ID> <User ID> <Days> [Reason]".cyan} ban a user from a guild`);
                     console.log(`${".bans".blue} ${"<Guild ID>".cyan} Display all the banned members from a guild`);
                     console.log(`${".changenick".blue} ${"<Guild ID> <Member ID> <Nick>".cyan} change a guild members nickname`);
@@ -452,6 +488,7 @@ async (input) => {
                     console.log(`${".guilds".blue} ${"Shows what guilds the bot is in".white}`);
                     console.log(`${".file".blue} ${"<File>".cyan} ${"Send a file".white}`);
                     console.log(`${".myperms".blue} ${"<Guild ID>".cyan} ${"Display the permissions the client user has in a guild"}`);
+                    console.log(`${".removerole".blue} ${"<Guild ID> <Member ID> <Role ID>".cyan} remove a role from a guild member`);
                     console.log(`${".setsender".blue} ${"<Channel/User ID>".cyan} Set a user/channel to send messages to`);
                     console.log(`${".unban".blue} ${"<Guild ID> <User ID> [Reason]".cyan} unban a user from a guild`);
                     console.log(`${".unbanall".blue} ${"<Guild ID>".cyan} unban all users from a guild`);
