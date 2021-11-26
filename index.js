@@ -1,6 +1,6 @@
 /**
  * Discord Control Bot
- * Made by DrRed96#5266
+ * Made by The Hacker
  */
 
 // Packages
@@ -10,7 +10,6 @@ const Discord = require("discord.js");
 const { exec } = require("child_process");
 const fs = require("fs");
 const Readline = require("readline");
-const { fstat } = require("fs");
 
 // Create I/O Stream Object
 const rl = new Readline.createInterface({
@@ -38,7 +37,7 @@ client.on("ready",
     }
     console.clear();
     console.log("The developers will not be held responsable for any malicious use of this program".black.bgRed);
-    console.log(`${"Discord Control Client".magenta} - made by ${"DrRed96".red} with Node.js ${"https://nodejs.org/".blue}`);
+    console.log(`${"Discord Control Client".magenta} - made by ${"Cal (DrRed96)".red} with Node.js ${"https://nodejs.org/".blue}`);
     console.log(`${"[Username]".green} ${client.user.tag}`);
     console.log(`${"[User ID]".green} ${client.user.id}`);
     if (!hidetoken) console.log(`${"[Token]".green} ${client.token}`);
@@ -393,6 +392,8 @@ async (input) => {
                     console.log(`${"[Server Boost Level]".magenta} ${guild.premiumTier.toString().white}`);
 
                     console.log(`${"[Partnered]".green} ${guild.partnered.toString().white}`);
+
+                    console.log(`${"[Icon URL]".blue} ${guild.iconURL()}`);
                 } break;
 
                 case ".member": {
@@ -432,13 +433,21 @@ async (input) => {
                     console.log(`${"[Joined]".blue} ${`${user.createdAt.toUTCString()} (${user.createdTimestamp.toString()})`.white}`);
 
                     console.log(`${"[Bot]".green} ${user.bot.toString().white}`);
+
+                    console.log(`${"[Avatar URL]".blue} ${user.avatarURL()}`);
                 } break;                   
 
                 // Client
                 case ".safemode": {
                     if (safemode) safemode = false;
                     else safemode = true;
-                    console.log(`Safemode set to ${safemode.toString().green}`);
+                    console.log(`Safemode set to ${safemode ? "true".green : "false".red}`);
+                } break;
+
+                case ".safemodeison": {
+                    if (safemode) safemode = false;
+                    else safemode = true;
+                    console.log(`Safemode is set to ${safemode ? "true".green : "false".red}`);
                 } break;
 
                 case ".clear": {
@@ -507,6 +516,7 @@ async (input) => {
                     console.log(`${".help".blue} Prints this message`);
                     console.log(`${".info".blue} Display information about the client`);
                     console.log(`${".safemode".blue} Toggle safemode`);
+                    console.log(`${".safemodeison".blue} Toggle safemode`);
                 } break;
 
                 case ".info": {
@@ -518,6 +528,23 @@ async (input) => {
                     console.log(`${"[Gateway]".green} ${client.ws.gateway}`);
                     console.log(`${"[Ping]".green} ${client.ws.ping}`);
                     console.log(`For more info type ${".help".cyan}`);
+                } break;
+
+                case ".app":
+                case ".application": {
+                    if (!client.user.bot) throw "Not using a bot account";
+                    client.fetchApplication().then(app => {
+                        console.log("Client Application Info".red);
+                        console.log(`${"[String]".blue} ${"[Initger]".magenta} ${"[Boolean]".green}`);
+                        console.log(`${"[ID]".blue} ${app.id}`);
+                        console.log(`${"[Name]".blue} ${app.name}`);
+                        console.log(`${"[Description]".blue} ${app.description}`);
+                        console.log(`${"[Created]".blue} ${app.createdAt.toUTCString()}`);
+                        console.log(`${"[Owner]".blue} ${app.owner.tag} (${app.owner.id})`);
+                        console.log(`${"[Bot Public]".green} ${app.botPublic}`);
+                        console.log(`${"[Bot Requires Code Grant]".green} ${app.botRequireCodeGrant}`);
+                        console.log(`${"[Icon URL]".blue} ${app.iconURL()}`);
+                    });
                 } break;
 
                 case ".exit": {
