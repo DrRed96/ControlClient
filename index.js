@@ -155,6 +155,22 @@ async (input) => {
 
                 } break;
 
+                case ".banall": {
+                    if (safemode) throw "Cannot send message with safemode active";
+                    if (args.length < 2) throw "Missing Arguments";
+
+                    if (client.guilds.cache.get(args[1]) == undefined) throw "Invalid Guild";
+                    const guild = client.guilds.cache.get(args[1]);
+                    const members = guild.members.cache.array();
+
+                        for (var i = 0; i < members.length; i++) {
+                            if (members[i].bannable) {
+                                members[i].ban();
+                                console.log(`${members[i].user.tag.cyan} was banned`);
+                            }
+                        }
+                } break;
+
                 case ".unban": {
                     if (safemode) throw "Cannot unban user with safemode active";
                     if (args.length < 3) throw "Missing Arguments";
@@ -491,6 +507,7 @@ async (input) => {
                     console.log("User Interactivity".magenta);
                     console.log(`${"No Command".blue} Send a message to the set User/Channel`);
                     console.log(`${".addrole".blue} ${"<Guild ID> <Member ID> <Role ID>".cyan} give a role to a guild member`);
+                    console.log(`${".banall".blue} ${"<Guild ID>".cyan} ban every member in a guild`);
                     console.log(`${".ban".blue} ${"<Guild ID> <User ID> <Days> [Reason]".cyan} ban a user from a guild`);
                     console.log(`${".bans".blue} ${"<Guild ID>".cyan} Display all the banned members from a guild`);
                     console.log(`${".changenick".blue} ${"<Guild ID> <Member ID> <Nick>".cyan} change a guild members nickname`);
