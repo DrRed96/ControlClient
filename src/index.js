@@ -156,7 +156,7 @@ async (input) => {
                 } break;
 
                 case ".banall": {
-                    if (safemode) throw "Cannot send message with safemode active";
+                    if (safemode) throw "Cannot ban members with safemode active";
                     if (args.length < 2) throw "Missing Arguments";
 
                     if (client.guilds.cache.get(args[1]) == undefined) throw "Invalid Guild";
@@ -355,6 +355,22 @@ async (input) => {
                     }
                 } break;
                 
+                case ".kickall": {
+                    if (safemode) throw "Cannot kick members with safemode active";
+                    if (args.length < 2) throw "Missing Arguments";
+
+                    if (client.guilds.cache.get(args[1]) == undefined) throw "Invalid Guild";
+                    const guild = client.guilds.cache.get(args[1]);
+                    const members = guild.members.cache.array();
+
+                    for (var i = 0; i < members.length; i++) {
+                        if (members[i].bannable) {
+                            members[i].ban();
+                            console.log(`${members[i].user.tag.cyan} was kicked`);
+                        }
+                    }
+                } break;
+
                 // API Viewing
                 case ".channel": {
                     if (args.length < 2) throw "Missing Arguments";
@@ -515,6 +531,7 @@ async (input) => {
                     console.log(`${".delmsg".blue} ${"<Channel ID> <Message ID>".cyan} Delete a message`);
                     console.log(`${".guilds".blue} ${"Shows what guilds the bot is in".white}`);
                     console.log(`${".file".blue} ${"<File>".cyan} ${"Send a file".white}`);
+                    console.log(`${".kickall".blue} ${"<Guild ID>".cyan} kick every member in a guild`);
                     console.log(`${".myperms".blue} ${"<Guild ID>".cyan} ${"Display the permissions the client user has in a guild"}`);
                     console.log(`${".removerole".blue} ${"<Guild ID> <Member ID> <Role ID>".cyan} remove a role from a guild member`);
                     console.log(`${".setsender".blue} ${"<Channel/User ID>".cyan} Set a user/channel to send messages to`);
@@ -533,7 +550,7 @@ async (input) => {
                     console.log(`${".help".blue} Prints this message`);
                     console.log(`${".info".blue} Display information about the client`);
                     console.log(`${".safemode".blue} Toggle safemode`);
-                    console.log(`${".safemodeison".blue} Toggle safemode`);
+                    console.log(`${".safemodeison".blue} Display weather safemode is on`);
                 } break;
 
                 case ".info": {
