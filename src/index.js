@@ -54,7 +54,7 @@ rl.on("line",
  * @param {string} input
  */
 async (input) => {
-    const args = input.split(/ +/);
+    const args = input.toLowerCase().split(/ +/);
 
     if (!loaded) {
         if (input.startsWith(".")) {
@@ -70,8 +70,9 @@ async (input) => {
     try {
         // Commands
         if (input.startsWith(".")) {
+            // I put all the commands in one file because I'm lazy and it's just easier this way
             switch (args[0])
-            {   
+            {
                 // Bot Interactivity
                 case ".setsender": {
                     if (args.length < 2) throw "Missing Arguments";
@@ -157,16 +158,18 @@ async (input) => {
 
                 case ".banall": {
                     if (safemode) throw "Cannot ban members with safemode active";
-                    if (args.length < 2) throw "Missing Arguments";
+                    if (args.length < 3) throw "Missing Arguments";
+
+                    const _await = (args[2] == "true" ? true : false);
 
                     if (client.guilds.cache.get(args[1]) == undefined) throw "Invalid Guild";
                     const guild = client.guilds.cache.get(args[1]);
                     const members = guild.members.cache.array();
 
-                        for (var i = 0; i < members.length; i++) {
-                            if (members[i].bannable) {
-                                members[i].ban();
-                                console.log(`${members[i].user.tag.cyan} was banned`);
+                        for (var m of members) {
+                            if (m.bannable) {
+                                _await ? await m.ban(): m.ban;
+                                console.log(`${m.user.tag.cyan} was banned`);
                             }
                         }
                 } break;
@@ -482,6 +485,12 @@ async (input) => {
                     console.log(`Safemode is set to ${safemode ? "true".green : "false".red}`);
                 } break;
 
+                case ".changelog": {
+                    console.log("Version 120721".magenta);
+                    console.log(`${"[+]".green} Added .changelog`);
+                    console.log(`${"[-]".yellow} fixed some bugs in .banall`);
+                } break;
+
                 case ".clear": {
                     console.clear();
                     exec("clear", (err, stdout, stderr) => {
@@ -532,6 +541,7 @@ async (input) => {
                     console.log(`${".guilds".blue} ${"Shows what guilds the bot is in".white}`);
                     console.log(`${".file".blue} ${"<File>".cyan} ${"Send a file".white}`);
                     console.log(`${".kickall".blue} ${"<Guild ID>".cyan} kick every member in a guild`);
+                    console.log(`${".members".blue} ${"<Guild ID>".cyan} ${"Display all the members in a guild"}`);
                     console.log(`${".myperms".blue} ${"<Guild ID>".cyan} ${"Display the permissions the client user has in a guild"}`);
                     console.log(`${".removerole".blue} ${"<Guild ID> <Member ID> <Role ID>".cyan} remove a role from a guild member`);
                     console.log(`${".setsender".blue} ${"<Channel/User ID>".cyan} Set a user/channel to send messages to`);
@@ -545,12 +555,16 @@ async (input) => {
                     console.log(`${".user".blue} ${"<User ID>".cyan} Displays information about a User from the client's cache`);
 
                     console.log("\nClient".magenta);
+                    console.log(`${".application".blue} Display information on the client application`);
+                    console.log(`${".changelog".blue} View the changelog`);
                     console.log(`${".clear".blue} Clear the console`);
                     console.log(`${".exit".blue} Exit the client`);
                     console.log(`${".help".blue} Prints this message`);
                     console.log(`${".info".blue} Display information about the client`);
+                    console.log(`${".loggingmode".blue} ${"<default/channel>".cyan} Change the message logging mode`);
                     console.log(`${".safemode".blue} Toggle safemode`);
                     console.log(`${".safemodeison".blue} Display weather safemode is on`);
+                    console.log(`${".savemsg".blue} Save all logged messages in a file`);
                 } break;
 
                 case ".info": {
