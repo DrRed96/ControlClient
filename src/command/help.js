@@ -5,8 +5,8 @@ async function cmd() {
     console.log("User Interactivity".magenta);
     console.log(`${"No Command".blue} Send a message to the set User/Channel`);
     console.log(`${".addrole".blue} ${"<Guild ID> <Member ID> <Role ID>".cyan} give a role to a guild member`);
-    console.log(`${".banall".blue} ${"<Guild ID>".cyan} ban every member in a guild`);
     console.log(`${".ban".blue} ${"<Guild ID> <User ID> <Days> [Reason]".cyan} ban a user from a guild`);
+    console.log(`${".banall".blue} ${"<Guild ID>".cyan} ban every member in a guild`);
     console.log(`${".bans".blue} ${"<Guild ID>".cyan} Display all the banned members from a guild`);
     console.log(`${".changenick".blue} ${"<Guild ID> <Member ID> <Nick>".cyan} change a guild members nickname`);
     console.log(`${".channels".blue} ${"<Guild ID>".cyan} Display all the channels in a guild`);
@@ -36,6 +36,7 @@ async function cmd() {
     console.log(`${".help".blue} Prints this message`);
     console.log(`${".info".blue} Display information about the client`);
     console.log(`${".loggingmode".blue} ${"<default/channel>".cyan} Change the message logging mode`);
+    console.log(`${".repository".blue} Display the GitHub repository link`);
     console.log(`${".safemode".blue} Toggle safemode`);
     console.log(`${".safemodeison".blue} Display weather safemode is on`);
     console.log(`${".savemsg".blue} Save all logged messages in a file`);

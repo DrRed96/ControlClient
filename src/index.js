@@ -233,6 +233,11 @@ async (input) => {
                     }
                 } break;
 
+                case ".repo":
+                case ".repository":
+                console.log("https://github.com/DrRed96/ControlClient.git".blue.underline);
+                break;
+
                 case ".savemsg": 
                 cmd_savemsg(messages);
                 break;
