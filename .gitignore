@@ -1,8 +1,9 @@
 cpp
 img
 .vscode
+node_modules
 *.exe
 tokens.txt
 channels.txt
 logs
-node_modules
+*.zip
