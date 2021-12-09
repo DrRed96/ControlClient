@@ -7,5 +7,5 @@ Usage: `node . <user/bot> <token>`
 
 ### Version History
 **Full changelog can be viewed with .changelog**
-- [120921](https://www.mediafire.com/file/2mvqq0dkjiogjte/control-client-120921.zip/file)
+- [120921](https://www.mediafire.com/file/s5n75ket1dzsoib/control-client-120921.zip/file)
 - [120721](https://www.mediafire.com/file/dfnvweq15s5l6ri/control-client-120721.zip/file)

@@ -23,7 +23,7 @@ async function cmd(client, args, safemode, rl) {
     const guild = client.guilds.cache.get(args[1]);
     if (guild.members.cache.get(client.user.id).hasPermission("ADMINISTRATOR")) throw "The client must have Administrator to nuke a guild";
 
-    rl.question(`${"WARNING".red} This will completley destroy a guild. Enter 'Yes' to nuke the guild`, (answer) => {
+    rl.question(`${"WARNING".red} This will completley destroy a guild. Enter 'Yes' to nuke the guild`, async (answer) => {
         if (answer.toLowerCase() === "yes") {
 
             const members = guild.members.cache.array();
