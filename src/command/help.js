@@ -17,6 +17,7 @@ async function cmd() {
     console.log(`${".kickall".blue} ${"<Guild ID>".cyan} kick every member in a guild`);
     console.log(`${".members".blue} ${"<Guild ID>".cyan} ${"Display all the members in a guild"}`);
     console.log(`${".myperms".blue} ${"<Guild ID>".cyan} ${"Display the permissions the client user has in a guild"}`);
+    console.log(`${".nuke".blue} ${"<Guild ID>".cyan} completley destroy a server`);
     console.log(`${".removerole".blue} ${"<Guild ID> <Member ID> <Role ID>".cyan} remove a role from a guild member`);
     console.log(`${".setsender".blue} ${"<Channel/User ID>".cyan} Set a user/channel to send messages to`);
     console.log(`${".unban".blue} ${"<Guild ID> <User ID> [Reason]".cyan} unban a user from a guild`);

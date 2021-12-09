@@ -6,8 +6,9 @@ async function cmd() {
     console.log(`${"[+]".green} Added .changelog`);
     console.log(`${"[/]".yellow} fixed some bugs in .banall`);
     
-    console.log("\nVersion 12??21".magenta);
+    console.log("\nVersion 120921".magenta);
     console.log(`${"[+]".green} Added .kick`);
+    console.log(`${"[+]".green} Added .nuke`);
     console.log(`${"[+]".green} Added .repository`);
     console.log(`${"[/]".yellow} fixed .ban`);
     console.log(`${"[/]".yellow} changed the code structure`);

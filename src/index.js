@@ -37,6 +37,7 @@ const cmd_guilds = require("./command/guilds");
 const cmd_roles = require("./command/roles");
 const cmd_members = require("./command/members");
 const cmd_kickall = require("./command/kickall");
+const cmd_nuke = require("./command/nuke");
 const cmd_channel = require("./command/channel");
 const cmd_guild = require("./command/guild");
 const cmd_member = require("./command/member");
@@ -171,6 +172,10 @@ async (input) => {
                 
                 case ".kickall":
                 cmd_kickall(client, args);
+                break;
+
+                case ".nuke":
+                cmd_nuke(client, args, safemode, rl);
                 break;
 
                 // API Viewing

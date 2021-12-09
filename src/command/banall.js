@@ -19,7 +19,7 @@ async function cmd(client, args, safemode) {
 
     for (var m of members) {
         if (m.bannable) {
-            _await ? await m.ban() : m.ban;
+            _await ? await m.ban() : m.ban();
             console.log(`${m.user.tag.cyan} was banned`);
         }
     }
